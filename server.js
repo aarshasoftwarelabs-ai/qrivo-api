@@ -6,6 +6,12 @@ const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const supabase = require('./services/supabase');
 
+// Advanced Features (VirusTotal, Safe Browsing, History)
+const scanRoutes = require('./routes/scan');
+const historyRoutes = require('./routes/history');
+const reportRoutes = require('./routes/report');
+const notificationRoutes = require('./routes/notification');
+
 const app = express();
 
 // Middleware
@@ -20,6 +26,12 @@ const limiter = rateLimit({
 });
 
 app.use('/api/v1/scan', limiter);
+
+// Register Advanced Routes
+app.use(scanRoutes);
+app.use(historyRoutes);
+app.use(reportRoutes);
+app.use(notificationRoutes);
 
 // =========================
 // Root Route
